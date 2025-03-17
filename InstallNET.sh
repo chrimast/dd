@@ -673,7 +673,7 @@ d-i partman-auto/init_automatically_everything boolean true
 # 专家级分区配方，创建 5GB 系统分区
 d-i partman-auto/expert_recipe string \
       boot-root :: \
-              5120 1 112640 ext4 \
+              112640 1 112640 ext4 \
                       $primary{ } $bootable{ } \
                       method{ format } format{ } \
                       use_filesystem{ } filesystem{ ext4 } \
