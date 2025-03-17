@@ -690,6 +690,9 @@ d-i partman-partitioning/confirm boolean true
 
 # 自动选择完成分区
 d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+d-i partman-basicfilesystems/no_swap boolean false
 
 d-i debian-installer/allow_unauthenticated boolean true
 
