@@ -668,10 +668,8 @@ d-i partman-partitioning/confirm_write_new_label boolean true
 d-i partman/mount_style select uuid
 # 使用标准分区方法
 d-i partman-auto/method string regular
-
 # 初始化整个磁盘，删除所有分区
 d-i partman-auto/init_automatically_everything boolean true
-
 # 专家级分区配方，创建 5GB 系统分区
 d-i partman-auto/expert_recipe string \
       boot-root :: \
@@ -681,17 +679,14 @@ d-i partman-auto/expert_recipe string \
                       use_filesystem{ } filesystem{ ext4 } \
                       mountpoint{ / } \
               .
-
 # 确认分区更改
 d-i partman-partitioning/confirm_write_changes boolean true
-
 # 自动完成分区
 d-i partman-partitioning/confirm boolean true
-
 # 自动选择完成分区
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
-d-i partman/confirm_nooverwrite boolean true
+# d-i partman/confirm_nooverwrite boolean true
 d-i partman-basicfilesystems/no_swap boolean false
 
 d-i debian-installer/allow_unauthenticated boolean true
