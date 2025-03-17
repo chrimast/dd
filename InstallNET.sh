@@ -666,16 +666,30 @@ umount /media || true; \
 
 d-i partman-partitioning/confirm_write_new_label boolean true
 d-i partman/mount_style select uuid
-d-i partman/choose_partition select finish
+# 使用标准分区方法
 d-i partman-auto/method string regular
-d-i partman-auto/init_automatically_partition select Guided - use entire disk
-d-i partman-auto/choose_recipe select All files in one partition (recommended for new users)
-d-i partman-md/device_remove_md boolean true
-d-i partman-lvm/device_remove_lvm boolean true
-d-i partman-lvm/confirm boolean true
-d-i partman-lvm/confirm_nooverwrite boolean true
-d-i partman/confirm boolean true
-d-i partman/confirm_nooverwrite boolean true
+
+# 初始化整个磁盘，删除所有分区
+d-i partman-auto/init_automatically_everything boolean true
+
+# 专家级分区配方，创建 5GB 系统分区
+d-i partman-auto/expert_recipe string \
+      boot-root :: \
+              5120 1 112640 ext4 \
+                      $primary{ } $bootable{ } \
+                      method{ format } format{ } \
+                      use_filesystem{ } filesystem{ ext4 } \
+                      mountpoint{ / } \
+              .
+
+# 确认分区更改
+d-i partman-partitioning/confirm_write_changes boolean true
+
+# 自动完成分区
+d-i partman-partitioning/confirm boolean true
+
+# 自动选择完成分区
+d-i partman/choose_partition select finish
 
 d-i debian-installer/allow_unauthenticated boolean true
 
